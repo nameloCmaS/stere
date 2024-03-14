@@ -29,7 +29,10 @@ def _retry(
     retry_time = retry_time or Stere.retry_time
     end_time = time.time() + retry_time
 
-    while time.time() < end_time:
+    # Do..while if retry_time = 0 the loop runs once
+    while True:
         if fn():
             return True
+        if time.time() < end_time:
+            break
     return False
