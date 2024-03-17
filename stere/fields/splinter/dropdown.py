@@ -60,11 +60,12 @@ class Dropdown(Field):
 
         found_options = []
 
-        while time.time() < end_time:
+        while True:
             found_options = self._select(value)
-            if not len(found_options):
+            if len(found_options) == 0:
                 return
-
+            if time.time() < end_time:
+                break
         raise ValueError(
             f'{value} was not found. Found values are: {found_options}')
 
